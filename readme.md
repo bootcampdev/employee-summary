@@ -36,11 +36,11 @@ Using classes and class extends, create a array of object employess.  Each role 
 
 ## Installation Requirements
 
-node install inquirer
+$ node install inquirer
 
-node install inquirer-recursive 
+$ node install inquirer-recursive 
 
-node install jest --save-dev
+$ node install jest --save-dev
 
 
 
@@ -65,7 +65,7 @@ npm install jest --save-dev
 
 ## Contributing
 
-
+n/a
 
 
 ## Application Repository
