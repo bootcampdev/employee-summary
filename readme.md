@@ -1,4 +1,4 @@
-# employee-summary
+# Employee-Summary
 <p float="left">
 <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
 <img alt="jQuery" src="https://img.shields.io/badge/jquery%20-%230769AD.svg?&style=for-the-badge&logo=jquery&logoColor=white"/>
@@ -15,7 +15,7 @@
 ![Mozilla](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)
 
 
-# employee-summary
+# Employee-Summary
 
 
 ## Description
