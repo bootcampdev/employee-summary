@@ -10,10 +10,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//
 // inquirer-recurive npm module with prompt option
 inquirer.registerPrompt('recursive', require('inquirer-recursive'));
-const recursive = require('inquirer-recursive');
 
+
+//
+// array ist of all of the employee objects created
 let employeeList = [];
 
 
@@ -24,6 +27,7 @@ let employeeList = [];
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
+//
 // the recursive type will repeat the prompts.
 
 inquirer.prompt([{
