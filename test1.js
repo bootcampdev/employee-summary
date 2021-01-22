@@ -48,6 +48,7 @@ inquirer.prompt([{
     ]
 }]).then(function(answers) {
     console.log(answers.users);
+
 });
 
 // var userQuestions = [

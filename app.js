@@ -13,6 +13,9 @@ const render = require("./lib/htmlRenderer");
 // inquirer recurive prompt option
 inquirer.registerPrompt('recursive', require('inquirer-recursive'));
 const recursive = require('inquirer-recursive');
+//const Employee = require("./lib/Employee");
+
+let employeeList = [];
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -25,28 +28,30 @@ const recursive = require('inquirer-recursive');
 inquirer.prompt([{
     type: 'recursive',
     message: 'Add a new employee?',
-    name: 'users',
+    name: 'employees',
     prompts: [
         {
             type: 'list',
-            message: 'Employee type?',
+            message: 'Employee role?',
             name: 'employee_type',
-            choices: ["Employee", "Manager", "Engineer", "Intern"],
-            default: "Employee"            
+            choices: ["Manager", "Engineer", "Intern"],
+            default: "Manager"
         },
         {
             type: 'input',
             name: 'name',
-            message: 'What is user\'s name?',
+            message: 'What is employee\'s name?',
             validate: function (value) {
-                if ((/.+/).test(value)) { return true; }
+                if ((/.+/).test(value)) {
+                    return true;
+                }
                 return 'name is required';
             }
-        }, 
+        },
         {
             type: 'input',
             name: 'id',
-            message: 'Id?',
+            message: 'Employee id?',
             validate: function (value) {
                 var digitsOnly = /\d+/;
                 if (digitsOnly.test(value)) { return true; }
@@ -56,30 +61,75 @@ inquirer.prompt([{
         {
             type: 'input',
             name: 'email',
-            message: 'What is employee\'s eMail?'        
+            message: 'What is employee\'s eMail?'
         },
         {
             type: 'input',
             name: 'office_number',
             message: 'Manager\'s office number?',
-            when: (answers) => answers.employee_type === "Manager"       
+            when: (answers) => answers.employee_type === "Manager"
         },
         {
             type: 'input',
             name: 'github_username',
             message: 'GitHub username?',
-            when: (answers) => answers.employee_type === "Engineer"       
+            when: (answers) => answers.employee_type === "Engineer"
         },
         {
             type: 'input',
             name: 'school',
-            message: 'School name?',
-            when: (answers) => answers.employee_type === "Intern"       
+            message: 'Student school name?',
+            when: (answers) => answers.employee_type === "Intern"
         },
     ]
-}]).then(function(answers) {
-    console.log(answers.users);
+}]).then(function (answers) {
+    console.log(answers.employees);
+
+
+    for (let emp in answers.employees) {
+        //console.log(answers.employees[emp])
+
+        let newEmployee;
+
+        switch (answers.employees[emp].employee_type) {
+
+            case "Manager":
+                newEmployee = new Manager(answers.employees[emp].name,
+                    answers.employees[emp].id,
+                    answers.employees[emp].email,
+                    answers.employees[emp].office_number);
+                break;
+            case "Engineer":
+                newEmployee = new Engineer(answers.employees[emp].name,
+                    answers.employees[emp].id,
+                    answers.employees[emp].email,
+                    answers.employees[emp].github_username);
+                break;
+            case "Intern":
+                newEmployee = new Intern(answers.employees[emp].name,
+                    answers.employees[emp].id,
+                    answers.employees[emp].email,
+                    answers.employees[emp].school);
+                break;
+        }
+
+        console.log("New employee is: " + newEmployee.name);
+        console.log("New employee is: " + newEmployee.getRole());
+        employeeList.push(newEmployee);
+        console.log("my employee list: " + employeeList)
+    }
+
+    const html = render(employeeList);
+    //console.log(html);
+
+    fs.writeFile("myteam.html", html, (err) => {
+        if (err) { console.log(err); }
+        else { console.log("Team file saved"); }
+    })
+
 });
+
+
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
